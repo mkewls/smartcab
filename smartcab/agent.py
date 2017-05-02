@@ -62,7 +62,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set 'state' as a tuple of relevant data for the agent
-        state = (waypoint, inputs['light'], inputs['oncoming'], deadline)
+        state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'])
 
         return state
 
@@ -123,10 +123,11 @@ class LearningAgent(Agent):
             else:
                 maxQ = self.get_maxQ(state)
                 state_key = str(state)
+                keys = []
                 for key, value in self.Q[state_key].iteritems():
                     if value == maxQ:
-                        action = key
-                        break
+                        keys.append(key)
+                action = random.choice(keys)
         else:
             action = random.choice(self.valid_actions)
 
